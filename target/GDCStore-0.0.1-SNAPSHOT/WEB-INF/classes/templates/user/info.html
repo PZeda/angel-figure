@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/fragment :: dynamic(~{::main})}">
+<head>
+    <style>
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div class="container rounded bg-white mt-5 mb-5 border-0 shadow rounded-3 overflow-hidden">
+        <div class="row" th:each="acc: ${info}">
+            <div class="col-md-4 mx-auto">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <div class="center-content">
+                        <img th:src="${#strings.isEmpty(acc.image) ? '/assets/images/noimage.jpg' : (#strings.startsWith(acc.image, 'http') ? acc.image : '/assets/images/' + acc.image)}"
+                             class="avatar rounded-circle"
+                             style="width: 200px; height: 200px; object-fit: cover;"
+                             alt="avatar">
+                        <h6>[[#{info.avata}]]</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-8">
+                <div class="p-3 py-5">
+                    <div class="row mb-3 card-title">
+                        <h4><label><i class="fa-solid fa-pen-to-square"></i> [[#{info.title}]]</label></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 text-center">
+                            <i class="fa-solid fa-user"></i>
+                            <label>[[#{info.name}]]</label>:
+                            <div class="mb-3">
+                                <input type="text" class="form-control text-center" id="floatingInputUsername"
+                                       placeholder="Fullname" required autofocus th:value="${acc.fullname}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 text-center">
+                            <i class="fa-solid fa-phone"></i>
+                            <label>[[#{info.sdt}]]</label>:
+                            <div class=" mb-3">
+                                <input type="text" class="form-control text-center" id="floatingInputPhonenumber"
+                                       placeholder="Phone number" required th:value="${acc.telePhone}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <i class="fa-solid fa-envelope"></i>
+                            <label>Email</label>:
+                            <div class="mb-3">
+                                <input type="text" class="form-control text-center" id="floatingInputEmail"
+                                       placeholder="you@gmail.com" required th:value="${acc.email}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <i class="fa-solid fa-address-book"></i>
+                            <label>[[#{info.address}]]</label>:
+                            <textarea class="form-control text-center" readonly rows="3">[(${acc.address})]</textarea>
+                        </div>
+                        <div class="col-sm-12 text-center mt-2">
+                            <a th:href="@{|/info/edit/${acc.username}|}"
+                               class="btn btn-lg btn-warning custom btn-block btn-edit fw-bold text-uppercase my-2">
+                                <label>[[#{info.edit}]]</label>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
